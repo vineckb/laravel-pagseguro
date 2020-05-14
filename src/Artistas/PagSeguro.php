@@ -440,6 +440,29 @@ class PagSeguro extends PagSeguroClient
     }
 
     /**
+     * Estorna uma transação.
+     *
+     * @param string $transactionCode
+     * @param string $refundValue
+     *
+     * @return mixed
+     */
+    public function refundTransaction($transactionCode, $refundValue = null)
+    {
+        $parameters = [
+            'email'           => $this->email,
+            'token'           => $this->token,
+            'transactionCode' => $transactionCode,
+        ];
+
+        if ($refundValue) {
+            $parameters['refundValue'] = $refundValue;
+        }
+
+        return $this->sendTransaction($parameters, $this->url['refundTransaction']);
+    }
+
+    /**
      * Valida os dados de pagamento.
      *
      * @param array $paymentSettings
